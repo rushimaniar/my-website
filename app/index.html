@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A private family productivity hub with custom-domain mailboxes, tasks, lists, and reminders."
+    />
+    <title>Raman Family Hub</title>
+    <link rel="stylesheet" href="./src/styles.css?v=4" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="Raman Family Hub home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>Raman Family Hub</span>
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#utilities">Utilities</a>
+        <a href="#contact">Contact</a>
+        <button class="nav-button" id="openAppButton" type="button">Private app</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section" id="home">
+        <div class="hero-copy">
+          <h1>A useful private site for the family.</h1>
+          <p>
+            Public tools on the front, a private dashboard behind login, and real
+            custom-domain mailboxes hosted through iCloud.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" id="heroOpenAppButton" type="button">Open dashboard</button>
+            <a class="secondary-link" href="#utilities">View public tools</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-label="Family dashboard preview">
+          <div class="preview-toolbar">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="preview-grid">
+            <div class="preview-large">
+              <div class="preview-label">Today</div>
+              <strong>4 tasks due</strong>
+              <p>School form, grocery run, mail setup, recycling.</p>
+            </div>
+            <div class="preview-card">
+              <div class="preview-label">Mailbox</div>
+              <strong>family@yourdomain.com</strong>
+            </div>
+            <div class="preview-card accent">
+              <div class="preview-label">Reminder</div>
+              <strong>7:00 PM</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="utility-section" id="utilities">
+        <div class="section-heading">
+          <h2>Public utilities worth keeping online</h2>
+          <p>Useful enough to visit, simple enough to maintain.</p>
+        </div>
+        <div class="utility-grid">
+          <article class="utility-card">
+            <div class="utility-icon" aria-hidden="true">01</div>
+            <h3>Trip packing list</h3>
+            <p>A reusable packing checklist for family trips, school events, and long weekends.</p>
+          </article>
+          <article class="utility-card">
+            <div class="utility-icon" aria-hidden="true">02</div>
+            <h3>Home checklist</h3>
+            <p>Seasonal maintenance, errands, documents, and small recurring household tasks.</p>
+          </article>
+          <article class="utility-card">
+            <div class="utility-icon" aria-hidden="true">03</div>
+            <h3>Family contact card</h3>
+            <p>A clean contact page with the right email addresses and emergency references.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contact">
+        <div>
+          <h2>Custom-domain email</h2>
+          <p>
+            Use iCloud+ for real mailboxes like <strong>you@yourdomain.com</strong>.
+            The app can still send task reminders from a separate notification address.
+          </p>
+        </div>
+        <a class="contact-link" href="mailto:contact@yourdomain.com">contact@yourdomain.com</a>
+      </section>
+
+      <section class="app-shell is-hidden" id="app" aria-label="Private productivity app">
+        <aside class="sidebar">
+          <div class="sidebar-top">
+            <div class="brand compact">
+              <span class="brand-mark" aria-hidden="true">R</span>
+              <span>Family Hub</span>
+            </div>
+            <button class="icon-button" id="closeAppButton" type="button" aria-label="Close app">x</button>
+          </div>
+          <nav class="side-nav" aria-label="App navigation">
+            <button class="side-link is-active" type="button" data-section="today">Today</button>
+            <button class="side-link" type="button" data-section="tasks">Tasks</button>
+            <button class="side-link" type="button" data-section="lists">Lists</button>
+            <button class="side-link" type="button" data-section="messages">Messages</button>
+            <button class="side-link" type="button" data-section="settings">Settings</button>
+          </nav>
+          <div class="login-card" id="loginCard">
+            <div class="eyebrow">Signed in as</div>
+            <strong id="currentUserName">Guest</strong>
+            <span id="currentUserEmail">Not signed in</span>
+            <button class="secondary-button" id="switchUserButton" type="button">Switch login</button>
+          </div>
+        </aside>
+
+        <section class="dashboard">
+          <header class="dashboard-header">
+            <div>
+              <h2 id="dashboardTitle">Today</h2>
+              <p id="dashboardSubtitle">Private tasks and messages stay scoped to the signed-in person.</p>
+            </div>
+            <form class="quick-add" id="taskForm">
+              <label class="visually-hidden" for="taskInput">Add task</label>
+              <input id="taskInput" name="task" type="text" placeholder="Add a task..." autocomplete="off" />
+              <select id="assigneeInput" name="assignee" aria-label="Assignee"></select>
+              <button class="primary-button small" type="submit">Add</button>
+            </form>
+          </header>
+
+          <div class="content-grid">
+            <section class="panel agenda-panel">
+              <div class="panel-heading">
+                <h3>Today agenda</h3>
+                <span id="todayDate"></span>
+              </div>
+              <div class="agenda-list" id="agendaList"></div>
+            </section>
+
+            <section class="panel tasks-panel">
+              <div class="panel-heading">
+                <h3>My Tasks</h3>
+                <div class="segmented" role="tablist" aria-label="Task filter">
+                  <button class="segment is-active" type="button" data-filter="mine">Mine</button>
+                  <button class="segment" type="button" data-filter="family">Family</button>
+                  <button class="segment" type="button" data-filter="later">Later</button>
+                </div>
+              </div>
+              <div class="task-list" id="taskList"></div>
+            </section>
+
+            <aside class="right-rail">
+              <section class="panel mail-panel">
+                <div class="panel-heading">
+                  <h3>Mailboxes</h3>
+                  <span class="status-dot"></span>
+                </div>
+                <div class="mailbox-list" id="mailboxList"></div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-heading">
+                  <h3>Messages</h3>
+                  <button class="text-button" id="newMessageButton" type="button">New</button>
+                </div>
+                <div class="message-list" id="messageList"></div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-heading">
+                  <h3>Family logins</h3>
+                </div>
+                <div class="member-list" id="memberList"></div>
+              </section>
+            </aside>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog class="login-dialog" id="loginDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <h2>Choose a demo login</h2>
+          <p>Production login should be handled by Cloudflare Access using family email addresses.</p>
+        </div>
+        <div class="login-options" id="loginOptions"></div>
+        <button class="secondary-button full-width" value="cancel" type="submit">Cancel</button>
+      </form>
+    </dialog>
+
+    <script src="./src/app.js?v=4" type="module"></script>
+  </body>
+</html>
